@@ -2,23 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using PGS.Kanban.Domain.Models;
 
 namespace PGS.Kanban.Domain.Models
 {
-    public class List
+    public class Card
     {
-
         [Key]
         public int Id { get; set; }
 
-        public int BoardId { get; set; }
+        public int ListId { get; set; }
 
-        public virtual Board Board { get; set; }
+        public virtual List List { get; set; }
 
         [Required]
         public string Name { get; set; }
-
-        public virtual ICollection<Card> Cards { get; set; } 
     }
 }

@@ -9,14 +9,16 @@ export default class List extends Component{
     constructor(props){
         super(props);
         this.state = {
-            name: props.listName
+            name: props.listName,
+            cards: props.cards,
+            cardName: ''
         };
 
     }
 
     renderCards = () => {
         return(
-            this.props.cards.map((card) => <Card cardName={card.name}/>)
+            this.state.cards.map((card) => <Card key={card.id} cardName={card.name}/>)
         );
     }
 
@@ -43,6 +45,22 @@ export default class List extends Component{
         });
     }
 
+    onClickAddCard = () => {
+        axios.post(BASE_URL + '/card', {name: this.state.cardName, listId: this.props.listId })
+        .then( (response) => {
+            console.log("ADD CARD!");
+            this.setState(prevState => {
+                return {
+                    cards: [...prevState.cards, response.data]
+                }
+            })
+        });
+    }
+
+    onCardNameChange = e => {
+        this.setState({cardName: e.target.value})
+    }
+
     render(){
         return(
             <div className="col-3">
@@ -55,7 +73,8 @@ export default class List extends Component{
                     {this.renderCards()}
                 </div>
                 <div>
-                    <button className="btn btn-warning btn-sm">Add Card</button>
+                    <input className="form-control" onChange={this.onCardNameChange} />
+                    <button className="btn btn-warning btn-sm" onClick={this.onClickAddCard} >Add Card</button>
                 </div>  
             </div>
             

@@ -51,15 +51,15 @@ class Board extends React.Component {
     }
 
     deleteListFromView = (index, e) => {
-        const boardDate = Object.assign([], this.state.boardData);
-        boardDate.splice(index,1);
-        this.setState({boardData: boardDate})
+        const boardData = Object.assign([], this.state.boardData);
+        boardData.splice(index,1);
+        this.setState({boardData: boardData})
     }
 
     renderLists = () => {
         //map zwraca tablice, a foreach nic
        return this.state.boardData.map((list, index) => (
-       <List key={list.id} deleteEvent={this.deleteListFromView.bind(this, index)} boardId={this.state.boardId} listId={list.id} listName={list.name} cards={[]}/>
+       <List key={list.id} deleteEvent={this.deleteListFromView.bind(this, index)} boardId={this.state.boardId} listId={list.id} listName={list.name} cards={list.cards}/>
         ));
     }
 
